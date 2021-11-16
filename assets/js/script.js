@@ -1,287 +1,224 @@
-var startBtn = document.getElementById('start-button');
-var timerEl = document.getElementById('countdown');
+let initialTime = 60;
+let time = 60;
+let score = 0;
+let quizCount = 0;
+let setTime;
+let answers = document.querySelectorAll('#quizHolder button');
+let clock;
+let recordsArray = [];
 
-var body = document.body;
+
+const questions = [
+  {
+      title: "The Answer is 1",
+      choices: ["1", "2", "3", "4"],
+      answer: "1"
+  },
+  {
+      title: "The Answer is 2",
+      choices: ["1", "2", "3", "4"],
+      answer: "2"
+  },
+  {
+      title: "The Answer is 3",
+      choices: ["1", "2", "3", "4"],
+      answer: "3"
+  },
+  {
+      title: "The Answer is 4",
+      choices: ["1", "2", "3", "4"],
+      answer: "4"
+  },
+  {
+      title: "The Answer is 1",
+      choices: ["1", "2", "3", "4"],
+      answer: "1"
+  },
+  {
+      title: "The Answer is 2",
+      choices: ["1", "2", "3", "4"],
+      answer: "2"
+  },
+  {
+      title: "The Answer is 3",
+      choices: ["1", "2", "3", "4"],
+      answer: "3"
+  },
+  {
+      title: "The Answer is 4",
+      choices: ["1", "2", "3", "4"],
+      answer: "4"
+  }
+];
+
+let userScores = []
 
 
-// questions
-
-//----1
-function question1() {
-var q1 = document.createElement('h2');
-q1.textContent =
-  'This is a question';
-q1.setAttribute('style', 'margin:auto; width:100%; text-align:center;');
-body.appendChild(q1);
-
-var favoriteEl = document.createElement('div');
-var listEl = document.createElement('ol');
-var li1 = document.createElement('button');
-var li2 = document.createElement('button');
-var li3 = document.createElement('button');
-var li4 = document.createElement('button');
-
-favoriteEl.textContent = 'Choose One:';
-li1.textContent = 'Answer A';
-li2.textContent = 'Answer B';
-li3.textContent = 'Answer C';
-li4.textContent = 'Answer D';
-
-favoriteEl.setAttribute('style', 'font-size:20px;');
-listEl.setAttribute('style', 'background: #888888; padding:20px;');
-
-body.appendChild(favoriteEl);
-favoriteEl.appendChild(listEl);
-listEl.appendChild(li1);
-listEl.appendChild(li2);
-listEl.appendChild(li3);
-listEl.appendChild(li4);
+const pageContentEl = function(element) {
+	return document.querySelector(element);
 };
 
-//----2
-function question2() {
-var q2 = document.createElement('h2');
-q2.textContent =
-  'This is a question';
-q2.setAttribute('style', 'margin:auto; width:100%; text-align:center;');
-body.appendChild(q2);
-
-var favoriteEl = document.createElement('div');
-var listEl = document.createElement('ol');
-var li1 = document.createElement('button');
-var li2 = document.createElement('button');
-var li3 = document.createElement('button');
-var li4 = document.createElement('button');
-
-favoriteEl.textContent = 'Choose One:';
-li1.textContent = 'Answer A';
-li2.textContent = 'Answer B';
-li3.textContent = 'Answer C';
-li4.textContent = 'Answer D';
-
-favoriteEl.setAttribute('style', 'font-size:20px;');
-listEl.setAttribute('style', 'background: #888888; padding:20px;');
-
-body.appendChild(favoriteEl);
-favoriteEl.appendChild(listEl);
-listEl.appendChild(li1);
-listEl.appendChild(li2);
-listEl.appendChild(li3);
-listEl.appendChild(li4);
-};
-
-//----3
-function question3() {
-var q3 = document.createElement('h2');
-q3.textContent =
-  'This is a question';
-q3.setAttribute('style', 'margin:auto; width:100%; text-align:center;');
-body.appendChild(q3);
-
-var favoriteEl = document.createElement('div');
-var listEl = document.createElement('ol');
-var li1 = document.createElement('button');
-var li2 = document.createElement('button');
-var li3 = document.createElement('button');
-var li4 = document.createElement('button');
-
-favoriteEl.textContent = 'Choose One:';
-li1.textContent = 'Answer A';
-li2.textContent = 'Answer B';
-li3.textContent = 'Answer C';
-li4.textContent = 'Answer D';
-
-favoriteEl.setAttribute('style', 'font-size:20px;');
-listEl.setAttribute('style', 'background: #888888; padding:20px;');
-
-body.appendChild(favoriteEl);
-favoriteEl.appendChild(listEl);
-listEl.appendChild(li1);
-listEl.appendChild(li2);
-listEl.appendChild(li3);
-listEl.appendChild(li4);
-};
-
-//----4
-function question4() {
-var q4 = document.createElement('h2');
-q4.textContent =
-  'This is a question';
-q4.setAttribute('style', 'margin:auto; width:100%; text-align:center;');
-body.appendChild(q4);
-
-var favoriteEl = document.createElement('div');
-var listEl = document.createElement('ol');
-var li1 = document.createElement('button');
-var li2 = document.createElement('button');
-var li3 = document.createElement('button');
-var li4 = document.createElement('button');
-
-favoriteEl.textContent = 'Choose One:';
-li1.textContent = 'Answer A';
-li2.textContent = 'Answer B';
-li3.textContent = 'Answer C';
-li4.textContent = 'Answer D';
-
-favoriteEl.setAttribute('style', 'font-size:20px;');
-listEl.setAttribute('style', 'background: #888888; padding:20px;');
-
-body.appendChild(favoriteEl);
-favoriteEl.appendChild(listEl);
-listEl.appendChild(li1);
-listEl.appendChild(li2);
-listEl.appendChild(li3);
-listEl.appendChild(li4);
-};
-
-//----5
-function question5() {
-var q5 = document.createElement('h2');
-q5.textContent =
-  'This is a question';
-q5.setAttribute('style', 'margin:auto; width:100%; text-align:center;');
-body.appendChild(q5);
-
-var favoriteEl = document.createElement('div');
-var listEl = document.createElement('ol');
-var li1 = document.createElement('button');
-var li2 = document.createElement('button');
-var li3 = document.createElement('button');
-var li4 = document.createElement('button');
-
-favoriteEl.textContent = 'Choose One:';
-li1.textContent = 'Answer A';
-li2.textContent = 'Answer B';
-li3.textContent = 'Answer C';
-li4.textContent = 'Answer D';
-
-favoriteEl.setAttribute('style', 'font-size:20px;');
-listEl.setAttribute('style', 'background: #888888; padding:20px;');
-
-body.appendChild(favoriteEl);
-favoriteEl.appendChild(listEl);
-listEl.appendChild(li1);
-listEl.appendChild(li2);
-listEl.appendChild(li3);
-listEl.appendChild(li4);
+const myTimer = function() {
+	if (time > 0) {
+		time = time - 1;
+		pageContentEl('#time').innerHTML = time;
+	} else {
+		clearInterval(clock);
+		pageContentEl('#score').innerHTML = score;
+		onlyDisplaySection("#finish");
+	}
 };
 
 
-//----6
-function question6() {
-var q6 = document.createElement('h2');
-q6.textContent =
-  'This is a question';
-q6.setAttribute('style', 'margin:auto; width:100%; text-align:center;');
-body.appendChild(q6);
-
-var favoriteEl = document.createElement('div');
-var listEl = document.createElement('ol');
-var li1 = document.createElement('button');
-var li2 = document.createElement('button');
-var li3 = document.createElement('button');
-var li4 = document.createElement('button');
-
-favoriteEl.textContent = 'Choose One:';
-li1.textContent = 'Answer A';
-li2.textContent = 'Answer B';
-li3.textContent = 'Answer C';
-li4.textContent = 'Answer D';
-
-favoriteEl.setAttribute('style', 'font-size:20px;');
-listEl.setAttribute('style', 'background: #888888; padding:20px;');
-
-body.appendChild(favoriteEl);
-favoriteEl.appendChild(listEl);
-listEl.appendChild(li1);
-listEl.appendChild(li2);
-listEl.appendChild(li3);
-listEl.appendChild(li4);
+const onlyDisplaySection = function(element) {
+	let sections = document.querySelectorAll("section");
+	Array.from(sections).forEach(function(userItem) {
+		userItem.classList.add('hide');
+	});
+	pageContentEl(element).classList.remove('hide');
 };
 
-//----7
-function question7() {
-var q7 = document.createElement('h2');
-q7.textContent =
-  'This is a question';
-q7.setAttribute('style', 'margin:auto; width:100%; text-align:center;');
-body.appendChild(q7);
+const quizUpdate = function(answerCopy) {
+	pageContentEl('#scoreAlert p').innerHTML = answerCopy;
+	pageContentEl('#scoreAlert').classList.remove('invisible', scoreAlert());
+	Array.from(answers).forEach(answer =>
+	{
+		answer.classList.add('disable');
+	});
 
-var favoriteEl = document.createElement('div');
-var listEl = document.createElement('ol');
-var li1 = document.createElement('button');
-var li2 = document.createElement('button');
-var li3 = document.createElement('button');
-var li4 = document.createElement('button');
-
-favoriteEl.textContent = 'Choose One:';
-li1.textContent = 'Answer A';
-li2.textContent = 'Answer B';
-li3.textContent = 'Answer C';
-li4.textContent = 'Answer D';
-
-favoriteEl.setAttribute('style', 'font-size:20px;');
-listEl.setAttribute('style', 'background: #888888; padding:20px;');
-
-body.appendChild(favoriteEl);
-favoriteEl.appendChild(listEl);
-listEl.appendChild(li1);
-listEl.appendChild(li2);
-listEl.appendChild(li3);
-listEl.appendChild(li4);
+	setTimeout(function() {
+		if (quizCount === questions.length) {
+			onlyDisplaySection("#finish");
+			time = 0;
+			pageContentEl('#time').innerHTML = time;
+		} else {
+			setQuestionData();
+			Array.from(answers).forEach(answer => {
+				answer.classList.remove('disable');
+			});
+		}
+	}, 1000);
 };
 
-//----8
-function question8() {
-var q8 = document.createElement('h2');
-q8.textContent =
-  'This is a question';
-q8.setAttribute('style', 'margin:auto; width:100%; text-align:center;');
-body.appendChild(q8);
 
-var favoriteEl = document.createElement('div');
-var listEl = document.createElement('ol');
-var li1 = document.createElement('button');
-var li2 = document.createElement('button');
-var li3 = document.createElement('button');
-var li4 = document.createElement('button');
-
-favoriteEl.textContent = 'Choose One:';
-li1.textContent = 'Answer A';
-li2.textContent = 'Answer B';
-li3.textContent = 'Answer C';
-li4.textContent = 'Answer D';
-
-favoriteEl.setAttribute('style', 'font-size:20px;');
-listEl.setAttribute('style', 'background: #888888; padding:20px;');
-
-body.appendChild(favoriteEl);
-favoriteEl.appendChild(listEl);
-listEl.appendChild(li1);
-listEl.appendChild(li2);
-listEl.appendChild(li3);
-listEl.appendChild(li4);
+const setQuestionData = function() {
+	pageContentEl('#quizHolder p').innerHTML = questions[quizCount].title;
+	pageContentEl('#quizHolder button:nth-of-type(1)').innerHTML = `1. ${questions[quizCount].choices[0]}`;
+	pageContentEl('#quizHolder button:nth-of-type(2)').innerHTML = `2. ${questions[quizCount].choices[1]}`;
+	pageContentEl('#quizHolder button:nth-of-type(3)').innerHTML = `3. ${questions[quizCount].choices[2]}`;
+	pageContentEl('#quizHolder button:nth-of-type(4)').innerHTML = `4. ${questions[quizCount].choices[3]}`;
 };
 
-function playQuiz() {
-    
+const scoreAlert = function() {
+	clearTimeout(setTime);
+	setTime = setTimeout(function() {
+		pageContentEl('#scoreAlert').classList.add('invisible');
+	}, 1000);
 };
 
-function startQuiz() {
-var timeLeft = 120;
-    var timeInterval = setInterval(function() {
-
-        if(timeLeft >= 1) {
-          timerEl.textContent = timeLeft
-          timeLeft--;
-        } else {
-          timerEl.textContent = ""
-          clearInterval(timeInterval);
-        window.alert("Time Out!");
-        }
-    }, 1000);
-
-playQuiz();
+const errorAlert = function() {
+	clearTimeout(setTime);
+	setTime = setTimeout(function() {
+		pageContentEl('#errorAlert').classList.add('invisible');
+	}, 3000);
 };
 
-startBtn.addEventListener("click", startQuiz);
+const enterInitials = function() {
+	let initialsRecord = pageContentEl('#initials').value;
+	if (initialsRecord === ''){
+		pageContentEl('#errorAlert p').innerHTML = "You need at least 1 character";
+		pageContentEl('#errorAlert').classList.remove('invisible', errorAlert());
+	} else if (initialsRecord.match(/[[A-Za-z]/) === null) {
+		pageContentEl('#errorAlert p').innerHTML = "Only letters for initials allowed.";
+		pageContentEl('#errorAlert').classList.remove('invisible', errorAlert());
+	} else if (initialsRecord.length > 5) {
+		pageContentEl('#errorAlert p').innerHTML = "Maximum of 5 characters allowed.";
+		pageContentEl('#errorAlert').classList.remove('invisible', errorAlert());
+	} else {
+		recordsArray.push({
+			"initialRecord": initialsRecord,
+			"score": score
+		});
+		
+		localStorage.setItem('recordsArray', JSON.stringify(recordsArray));
+		pageContentEl('#highScores div').innerHTML = '';
+		onlyDisplaySection("#highScores");
+		recordsHtmlReset();
+		pageContentEl("#initials").value = '';
+		}
+};
+
+const clearHighScores = function () {
+	recordsArray = [];
+	pageContentEl('#highScores div').innerHTML = "";
+	localStorage.removeItem('recordsArray');
+};
+
+const quizReset = function () {
+	time = initialTime;
+	score = 0;
+	quizCount = 0;
+	onlyDisplaySection("#intro");
+};
+
+const startQuiz = function () {
+    setQuestionData();
+	onlyDisplaySection("#quizHolder");
+	clock = setInterval(myTimer, 1000);
+};
+
+const viewHighScores = function (e) {
+	e.preventDefault();
+	clearInterval(clock);
+	pageContentEl('#time').innerHTML = 0;
+	time = initialTime;
+	score = 0;
+	quizCount = 0;
+	onlyDisplaySection("#highScores");
+	recordsHtmlReset();
+};
+
+const scoreTimeAdjust = function () {
+	if (this.innerHTML.substring(3, this.length) === questions[quizCount].answer) {
+		score = score + 1;
+		quizCount = quizCount + 1;
+		quizUpdate("Correct");
+	}else{
+		time = time - 5;
+		quizCount = quizCount + 1;
+		quizUpdate("Incorrect");
+	}
+};
+
+
+const recordsHtmlReset = function() {
+	pageContentEl('#highScores div').innerHTML = "";
+	let i = 1;
+	recordsArray.sort((a, b) => b.score - a.score);
+	Array.from(recordsArray).forEach(check =>
+	{
+		const scores = document.createElement("div");
+		scores.innerHTML = i + ". " + check.initialRecord + " - " + check.score;
+		pageContentEl('#highScores div').appendChild(scores);
+		i = i + 1;
+	});
+	i = 0;
+	Array.from(answers).forEach(answer => {
+		answer.classList.remove('disable');
+	});
+};
+
+
+(localStorage.getItem('recordsArray')) ? recordsArray = JSON.parse(localStorage.getItem('recordsArray')): recordsArray = [];
+
+Array.from(answers).forEach(check => {check.addEventListener('click', scoreTimeAdjust);});
+
+pageContentEl("#intro button").addEventListener("click", startQuiz);
+
+pageContentEl("#records button").addEventListener("click", enterInitials);
+
+pageContentEl("#clearScores").addEventListener("click", clearHighScores);
+
+pageContentEl("#reset").addEventListener("click", quizReset);
+
+pageContentEl("#scores").addEventListener("click", viewHighScores);

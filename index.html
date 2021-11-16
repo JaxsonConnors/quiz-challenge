@@ -4,19 +4,57 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>Quiz</title>
 </head>
 
 <body>
 
-    <h1 style= 'margin:auto; width:50%; text-align:center;'>Quiz</h1>
-    <h2 id="countdown", style="display: inline-block;"></h2>
-    <div style= 'margin:auto; width:50%; text-align:center;'>
-    <button id="start-button">Start Quiz</button>
+    <div id="timer"><p>Time: <span id="time">0</span></p></div>
+  
+    <div id="quizBody">
+        <section id="intro">
+          <h1>Quiz</h1>
+
+          <button>Start</button>
+      
+        </section>
+      
+        <section id="quizHolder" class="hide">
+          <p id="title"></p>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+          <div id="scoreAlert" class="invisible">
+            <p>&nbsp;</p>
+          </div>
+        </section>
+      
+        <section id="finish" class="hide">
+          <h1>Done</h1>
+          <p>Your final score is&nbsp;<span id="score"></span></p>
+          <div id="records">
+            <p>Enter initials: </p><input id="initials" type="text"> <button>Submit</button>
+          </div>
+          <div id="errorAlert" class="invisible">
+            <p>&nbsp;</p>
+          </div>
+        </section>
+      
+        <section id="highScores" class="hide">
+          <h1>Scoreboard</h1>
+          <div>
+      
+          </div>
+          <button id="reset">Go Back</button> <button id="clearScores">Clear Scores</button>
+        </section>
     </div>
 
-    <script src="./assets/js/script.js"></script>
+    <button id="scores" href="">View Scoreboard</button>
 
+    <script src="./assets/js/script.js"></script>
+    <!-- <script src="assets/js/questions.js"></script>  -->
 </body>
 
 </html>
